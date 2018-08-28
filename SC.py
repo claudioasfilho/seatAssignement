@@ -161,7 +161,7 @@ print("\n")
 i=0
 for Student in ClassRoom:
 
-	print ("Name: {0} Behavior:{1} Front:{2} Grade:{3} Gender:{4}" .format(Student.firstName,Student.behavior,Student.frontSeat, Student.grade, Student.gender))
+	print ("Name: {0} {1} Behavior:{2} Front:{3} Grade:{4} Gender:{5}" .format(Student.firstName,Student.lastName,Student.behavior,Student.frontSeat, Student.grade, Student.gender))
 	i +=1
 	if (i==4):
 		print("\n")
