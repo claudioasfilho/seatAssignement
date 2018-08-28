@@ -1,4 +1,0 @@
-Arm_id      DSPName        DSPCode          HubCode          PinCode    PPTL
-1            JaVAS            01              AGR             282001    1,2
-2            JaVAS            01              AGR             282002    3,4
-3            JaVAS            01              AGR             282003    5,6
