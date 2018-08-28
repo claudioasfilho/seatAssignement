@@ -1,8 +1,9 @@
+import xlrd
 from xlrd import open_workbook
 from FunctionsAndClasses import *
 import sys, getopt
 import os
-
+from xlutils.copy import copy
 
 #it reads the input file
 inputfile = sys.argv[1]
@@ -10,27 +11,25 @@ inputfile = sys.argv[1]
 if os.path.isfile(inputfile):
     #it Imports the Excel File
     wb = open_workbook(inputfile)
-    for sheet in wb.sheets():
-        number_of_rows = sheet.nrows
-        number_of_columns = sheet.ncols
-
-        allStudents = []
-
-        rows = []
-        for row in range(1, number_of_rows):
-            values = []
-            for col in range(number_of_columns):
-                value  = (sheet.cell(row,col).value)
-                try:
-                    value = str(int(value))
-                except ValueError:
-                    pass
-                finally:
-                    values.append(value)
-            Student = StudentObj(*values)
-            allStudents.append(Student)
+    ws= wb.sheet_by_index(0)
+    number_of_rows = ws.nrows
+    number_of_columns = ws.ncols
+    allStudents = []
+    rows = []
+    for row in range(1, number_of_rows):
+        values = []
+        for col in range(number_of_columns):
+            value  = (ws.cell(row,col).value)
+            try:
+                value = str(int(value))
+            except ValueError:
+                pass
+            finally:
+                values.append(value)
+        Student = StudentObj(*values)
+        allStudents.append(Student)
 else:
-    print("{0} does not appear to be a valid file".format(inputfile))
+    print("{0} does not appear to be a valid file, choose the right file and retry".format(inputfile))
     sys.exit(2)
 
 #for Student in allStudents:
