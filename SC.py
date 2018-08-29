@@ -1,9 +1,13 @@
 import xlrd
+import xlwt
 from xlrd import open_workbook
 from FunctionsAndClasses import *
 import sys, getopt
 import os
 from xlutils.copy import copy
+import re
+import string
+import time
 
 #it reads the input file
 inputfile = sys.argv[1]
@@ -167,5 +171,54 @@ for Student in ClassRoom:
 		print("\n")
 		i=0
 
+workbook = xlwt.Workbook()
+sheet = workbook.add_sheet('Assignment')
 
+style = xlwt.XFStyle()
+#font = xlwt.Font('Arial')
+#style.font = font
+pattern = xlwt.Pattern()
+pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+pattern.pattern_fore_colour = xlwt.Style.colour_map['red']
+style.pattern = pattern
+
+rowCounter=0
+columnCounter=0;
+i=0
+
+row = sheet.row(rowCounter)
+row.write(0, "Student Number", style)
+row.write(1, "First Name")
+row.write(2, "Last Name")
+row.write(3, "Gender")
+row.write(4, "Grade")
+row.write(5, "Front Seat")
+row.write(6, "Height")
+row.write(7,"Behavior")
+row.write(8, "Former Seat")
+
+rowCounter=1
+
+for Student in ClassRoom:
+    row = sheet.row(rowCounter)
+    row.write(0, Student.sNumber, style)
+    row.write(1, Student.firstName)
+    row.write(2, Student.lastName)
+    row.write(3, Student.gender)
+    row.write(4, Student.grade)
+    row.write(5, Student.frontSeat)
+    row.write(6, Student.height)
+    row.write(7,Student.behavior)
+    row.write(8, Student.fSeat)
+    sheet.row(rowCounter).height = 100
+    rowCounter +=1
+    i +=1
+    if (i==4):
+        rowCounter +=1
+        i=0
+
+#outputfile = inputfile.replace('.xls','') + "output.xls"
+
+outputfile = inputfile.replace('.xls',' ') + time.strftime("%m-%d-%y") + ".xls"
+workbook.save(outputfile)
 #printLen("ClassRoom", ClassRoom)
